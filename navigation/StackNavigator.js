@@ -3,6 +3,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "../screens/LoginScreen";
 import DashboardScreen from "../screens/DashboardScreen";
+import BookDetailScreen from "../screens/BookDetailScreen";
+import AddBookScreen from "../screens/AddBookScreen";
+import UpdateBookScreen from "../screens/UpdateBookScreen";
 import { onAuthStateChanged } from "firebase/auth";
 import { FIREBASE_AUTH } from "../config/FirebaseConfig";
 
@@ -27,6 +30,21 @@ const StackNavigator = () => {
           options={{
             headerShown: false,
           }}
+        />
+        <InsideStack.Screen
+          name="BookDetailScreen"
+          component={BookDetailScreen}
+          options={{ headerShown: true }}
+        />
+        <InsideStack.Screen
+          name="AddBookScreen"
+          component={AddBookScreen}
+          options={{ headerShown: true }}
+        />
+        <InsideStack.Screen
+          name="UpdateBookScreen"
+          component={UpdateBookScreen}
+          options={{ headerShown: true }}
         />
       </InsideStack.Navigator>
     );

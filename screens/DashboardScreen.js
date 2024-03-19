@@ -1,33 +1,114 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import ActionButton from '../components/ActionButton';
-import { FIREBASE_AUTH } from '../config/FirebaseConfig';
-import { theme } from '../themes/theme';
+import React, { useState, useEffect, useCallback } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  SafeAreaView,
+  RefreshControl,
+  Platform,
+} from "react-native";
+import ActionButton from "../components/ActionButton";
+import { FIREBASE_AUTH } from "../config/FirebaseConfig";
+import { theme } from "../themes/theme";
+import axios from "axios";
+import BookCard from "../components/BookCard";
+import { useFocusEffect } from "@react-navigation/native";
+import { useNavigation } from '@react-navigation/native';
+
+
 
 function DashboardScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <ActionButton
-          text="Sign out"
-          onPress={() => FIREBASE_AUTH.signOut()}
-          customStyle={logoutButtonStyle}
-          
-        />
-      <Text>Hi from Dashboard Screen</Text>
+  const [books, setBooks] = useState([]);
+  const [refreshing, setRefreshing] = useState(true);
+  const navigation = useNavigation();
 
-    </View>
+  const handleAddBookButton = () => {
+    navigation.navigate('AddBookScreen');
+  };
+  const baseURL =
+    Platform.OS === "android"
+      ? "http://10.0.2.2:3000"
+      : "http://localhost:3000";
+  useEffect(() => {
+    fetchBooks();
+  }, []);
+
+  // refetch the book after redirecting to this screen after deleting
+  useFocusEffect(
+    useCallback(() => {
+      fetchBooks();
+    }, [])
+  );
+
+  const fetchBooks = async () => {
+    try {
+      const response = await axios.get(`${baseURL}/books`);
+      setBooks(response.data);
+      setRefreshing(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  return (
+    <SafeAreaView style={styles.container}>
+      <ActionButton
+        text="Sign out"
+        onPress={() => FIREBASE_AUTH.signOut()}
+        customStyle={logoutButtonStyle}
+      />
+      <Text>Hi from Dashboard Screen</Text>
+      <FlatList
+        data={books}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => <BookCard book={item} />}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={fetchBooks} />
+        }
+      />
+      <ActionButton
+        text="Add new book"
+        onPress={() => handleAddBookButton()}
+        customStyle={buttonStyle}
+      />
+    </SafeAreaView>
   );
 }
+//actionbutton styles
+const buttonStyle = {
+  button: {
+    backgroundColor: theme.colors.primary,
+    paddingHorizontal: 12,
+    paddingVertical: 14,
+    marginTop: 24,
+  },
+  buttonText: {
+    color: theme.colors.grey00,
+    fontFamily: theme.textVariants.semiBold,
+    fontSize: theme.textVariants.s,
+    marginLeft: 10,
+    marginRight: 8,
+  },
+};
 const logoutButtonStyle = {
-    button: {
-      marginTop: 16,
-      //flex:0.5,
-    },
-    buttonText: {
-      color: theme.colors.error,
-      fontFamily: theme.textVariants.semiBold,
-      fontSize: theme.textVariants.s,
-      marginLeft: 4,
-    },
-  };
+  button: {
+    marginTop: 16,
+    //flex:0.5,
+  },
+  buttonText: {
+    color: theme.colors.error,
+    fontFamily: theme.textVariants.semiBold,
+    fontSize: theme.textVariants.s,
+    marginLeft: 4,
+  },
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    marginHorizontal: 20,
+    //alignItems: 'center'
+  },
+});
 export default DashboardScreen;

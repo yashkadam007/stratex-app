@@ -1,0 +1,46 @@
+{
+  "books": [
+    {
+      "id": "1",
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "genre": "Fiction",
+      "year": 1961
+    },
+    {
+      "id": "2",
+      "title": "1984",
+      "author": "George Orwell",
+      "genre": "Science Fiction",
+      "year": 1941
+    },
+    {
+      "id": "3",
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "genre": "Fiction",
+      "year": 1925
+    },
+    {
+      "id": "4",
+      "title": "Moby-Dick; or, The Whale",
+      "author": "Herman Melville",
+      "genre": "Adventure",
+      "year": 1851
+    },
+    {
+      "id": "5",
+      "title": "Pride and Prejudice",
+      "author": "Jane Austen",
+      "genre": "Romance",
+      "year": 1813
+    },
+    {
+      "id": "cf76",
+      "title": "Harry Potter",
+      "author": "J K Rowling",
+      "genre": "Fantasy",
+      "year": 2000
+    }
+  ]
+}
