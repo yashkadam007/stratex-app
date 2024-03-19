@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Button, Alert } from 'react-native';
+import { View, TextInput, StyleSheet, Button, Alert, SafeAreaView } from 'react-native';
 import axios from 'axios';
+import { theme } from '../themes/theme';
+import ActionButton from '../components/ActionButton';
 
 const AddBookScreen = ({ navigation }) => {
   const [title, setTitle] = useState('');
@@ -28,7 +30,7 @@ const AddBookScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TextInput
         style={styles.input}
         placeholder="Title"
@@ -54,22 +56,43 @@ const AddBookScreen = ({ navigation }) => {
         onChangeText={setYear}
         keyboardType="numeric"
       />
-      <Button title="Add Book" onPress={handleAddBook} />
-    </View>
+      <ActionButton
+        text="Add Book" 
+        onPress={handleAddBook} 
+        customStyle={buttonStyle}
+        />
+    </SafeAreaView>
   );
 };
 
+//actionbutton styles
+const buttonStyle = {
+  button: {
+    backgroundColor: theme.colors.primary,
+    paddingHorizontal: 12,
+    paddingVertical: 14,
+    marginTop: 24,
+  },
+  buttonText: {
+    color: theme.colors.grey00,
+    fontFamily: theme.textVariants.semiBold,
+    fontSize: theme.textVariants.s,
+    marginLeft: 10,
+    marginRight: 8,
+  },
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    padding: 16,
+    margin: 16,
   },
   input: {
     height: 40,
-    borderColor: 'gray',
+    borderRadius: 50,
+    borderColor: theme.colors.grey300,
     borderWidth: 1,
-    marginBottom: 10,
+    marginVertical: 10,
     paddingHorizontal: 10,
   },
 });

@@ -14,9 +14,7 @@ import { theme } from "../themes/theme";
 import axios from "axios";
 import BookCard from "../components/BookCard";
 import { useFocusEffect } from "@react-navigation/native";
-import { useNavigation } from '@react-navigation/native';
-
-
+import { useNavigation } from "@react-navigation/native";
 
 function DashboardScreen() {
   const [books, setBooks] = useState([]);
@@ -24,13 +22,13 @@ function DashboardScreen() {
   const navigation = useNavigation();
 
   const handleAddBookButton = () => {
-    navigation.navigate('AddBookScreen');
+    navigation.navigate("Add Book");
   };
   const baseURL =
     Platform.OS === "android"
       ? "http://10.0.2.2:3000"
       : "http://localhost:3000";
-      
+
   useEffect(() => {
     fetchBooks();
   }, []);
@@ -53,12 +51,13 @@ function DashboardScreen() {
   };
   return (
     <SafeAreaView style={styles.container}>
-      <ActionButton
-        text="Sign out"
-        onPress={() => FIREBASE_AUTH.signOut()}
-        customStyle={logoutButtonStyle}
-      />
-      <Text>Hi from Dashboard Screen</Text>
+      <View style={styles.header}>
+        <ActionButton
+          text="Sign out"
+          onPress={() => FIREBASE_AUTH.signOut()}
+          customStyle={logoutButtonStyle}
+        />
+      </View>
       <FlatList
         data={books}
         keyExtractor={(item) => item.id.toString()}
@@ -93,8 +92,9 @@ const buttonStyle = {
 };
 const logoutButtonStyle = {
   button: {
+    backgroundColor: theme.colors.errorT,
     marginTop: 16,
-    //flex:0.5,
+    padding: 4,
   },
   buttonText: {
     color: theme.colors.error,
@@ -108,8 +108,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    marginHorizontal: 20,
-    //alignItems: 'center'
+    margin: 16,
+  },
+  header: {
+    marginVertical: 10,
+    flexDirection: "row",
+    justifyContent: "flex-end",
   },
 });
 export default DashboardScreen;

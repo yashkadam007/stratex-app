@@ -54,14 +54,14 @@ function LoginScreen() {
       <TextInput
         style={styles.input}
         value={email}
-        autoCapitalize='none'
+        autoCapitalize="none"
         placeholder="Email"
         onChangeText={(text) => setEmail(text)}
       ></TextInput>
       <TextInput
         style={styles.input}
         value={password}
-        autoCapitalize='none'
+        autoCapitalize="none"
         secureTextEntry={true}
         placeholder="Password"
         onChangeText={(text) => setPassword(text)}
@@ -73,14 +73,12 @@ function LoginScreen() {
           <ActionButton
             text="Login"
             onPress={handleSignIn}
-            customStyle={buttonStyle}
-            //icon={<ArrowRightIcon />}
+            customStyle={loginButtonStyle}
           />
           <ActionButton
             text="Sign Up"
             onPress={handleSignUp}
-            customStyle={buttonStyle}
-            //icon={<ArrowRightIcon />}
+            customStyle={signUpbuttonStyle}
           />
         </>
       )}
@@ -89,7 +87,24 @@ function LoginScreen() {
 }
 
 //actionbutton styles
-const buttonStyle = {
+const loginButtonStyle = {
+  button: {
+    backgroundColor: theme.colors.blueT,
+    borderWidth:1,
+    borderColor: theme.colors.primary,
+    paddingHorizontal: 12,
+    paddingVertical: 14,
+    marginTop: 24,
+  },
+  buttonText: {
+    color: theme.colors.primary,
+    fontFamily: theme.textVariants.semiBold,
+    fontSize: theme.textVariants.s,
+    marginLeft: 10,
+    marginRight: 8,
+  },
+};
+const signUpbuttonStyle = {
   button: {
     backgroundColor: theme.colors.primary,
     paddingHorizontal: 12,
@@ -113,7 +128,8 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    borderColor: "gray",
+    borderRadius: 50,
+    borderColor: theme.colors.grey300,
     borderWidth: 1,
     marginVertical: 10,
     paddingHorizontal: 10,

@@ -1,11 +1,12 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { theme } from "../themes/theme";
 
 const BookCard = ({ book }) => {
   const navigation = useNavigation();
   const handleBookCardPress = () => {
-    navigation.navigate('BookDetailScreen', { bookId: book.id });
+    navigation.navigate("Book Details", { bookId: book.id });
   };
 
   return (
@@ -22,34 +23,32 @@ const BookCard = ({ book }) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: theme.colors.secondaryT,
+    borderWidth: 1,
+    borderColor: theme.colors.secondary,
     borderRadius: 8,
     padding: 16,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
     marginBottom: 16,
   },
   title: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: theme.textVariants.l,
+    fontFamily: theme.textVariants.semiBold,
+    color: theme.colors.secondary,
     marginBottom: 8,
   },
   author: {
-    fontSize: 16,
+    fontSize: theme.textVariants.s,
+    fontFamily: theme.textVariants.regular,
     marginBottom: 4,
   },
   genre: {
-    fontSize: 16,
+    fontSize: theme.textVariants.s,
+    fontFamily: theme.textVariants.regular,
     marginBottom: 4,
   },
   year: {
-    fontSize: 16,
+    fontSize: theme.textVariants.s,
+    fontFamily: theme.textVariants.regular,
   },
 });
 

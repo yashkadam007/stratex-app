@@ -6,8 +6,11 @@ import {
   Button,
   Alert,
   Platform,
+  SafeAreaView,
 } from "react-native";
 import axios from "axios";
+import { theme } from "../themes/theme";
+import ActionButton from "../components/ActionButton";
 
 const UpdateBookScreen = ({ route, navigation }) => {
   const { bookId } = route.params;
@@ -62,7 +65,7 @@ const UpdateBookScreen = ({ route, navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TextInput
         style={styles.input}
         placeholder="Title"
@@ -88,22 +91,42 @@ const UpdateBookScreen = ({ route, navigation }) => {
         onChangeText={setYear}
         keyboardType="numeric"
       />
-      <Button title="Update Book" onPress={handleUpdateBook} />
-    </View>
+      <ActionButton 
+        text="Update Book" 
+        onPress={handleUpdateBook}
+        customStyle={buttonStyle}
+      />
+    </SafeAreaView>
   );
+};
+const buttonStyle = {
+  button: {
+    backgroundColor: theme.colors.primary,
+    paddingHorizontal: 12,
+    paddingVertical: 14,
+    marginTop: 24,
+  },
+  buttonText: {
+    color: theme.colors.grey00,
+    fontFamily: theme.textVariants.semiBold,
+    fontSize: theme.textVariants.s,
+    marginLeft: 10,
+    marginRight: 8,
+  },
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    padding: 16,
+    margin:16
   },
   input: {
     height: 40,
-    borderColor: "gray",
+    borderRadius: 50,
+    borderColor: theme.colors.grey300,
     borderWidth: 1,
-    marginBottom: 10,
+    marginVertical: 10,
     paddingHorizontal: 10,
   },
 });

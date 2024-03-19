@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { onAuthStateChanged } from "firebase/auth";
+import { FIREBASE_AUTH } from "../config/FirebaseConfig";
+//screens
 import LoginScreen from "../screens/LoginScreen";
 import DashboardScreen from "../screens/DashboardScreen";
 import BookDetailScreen from "../screens/BookDetailScreen";
 import AddBookScreen from "../screens/AddBookScreen";
 import UpdateBookScreen from "../screens/UpdateBookScreen";
-import { onAuthStateChanged } from "firebase/auth";
-import { FIREBASE_AUTH } from "../config/FirebaseConfig";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator(); //Navigation before login
@@ -25,24 +26,24 @@ const StackNavigator = () => {
     return (
       <InsideStack.Navigator>
         <InsideStack.Screen
-          name="DashboardScreen"
+          name="Dashboard"
           component={DashboardScreen}
           options={{
             headerShown: false,
           }}
         />
         <InsideStack.Screen
-          name="BookDetailScreen"
+          name="Book Details"
           component={BookDetailScreen}
           options={{ headerShown: true }}
         />
         <InsideStack.Screen
-          name="AddBookScreen"
+          name="Add Book"
           component={AddBookScreen}
           options={{ headerShown: true }}
         />
         <InsideStack.Screen
-          name="UpdateBookScreen"
+          name="Update Book Info"
           component={UpdateBookScreen}
           options={{ headerShown: true }}
         />
